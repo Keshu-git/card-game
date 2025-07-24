@@ -1,6 +1,7 @@
 
 const icons = ['fa-dog', 'fa-cat', 'fa-fish', 'fa-frog', 'fa-spider', 'fa-hippo'];
 let flippedCards = [];
+let matchedPairs = 0;
 
 function shuffle(array) {
     return array.sort(() => 0.5 - Math.random());
@@ -10,6 +11,7 @@ function initializeGame() {
     const cardGrid = document.getElementById('cardGrid');
     cardGrid.innerHTML = '';
     flippedCards = [];
+    matchedPairs = 0;
 
     const pairs = [...icons, ...icons];
     const shuffledIcons = shuffle(pairs);
@@ -45,14 +47,16 @@ function flipCard(card) {
         const val2 = card2.dataset.icon;
 
         if (val1 === val2) {
-
+            matchedPairs++;
             setTimeout(() => {
                 card1.classList.add('hide');
                 card2.classList.add('hide');
                 flippedCards = [];
+                if (matchedPairs === icons.length) {
+                    showPopup();
+                }
             }, 700);
         } else {
-
             setTimeout(() => {
                 card1.querySelector('.flip-card-inner').classList.remove('flipped');
                 card2.querySelector('.flip-card-inner').classList.remove('flipped');
@@ -62,4 +66,13 @@ function flipCard(card) {
     }
 }
 
+function showPopup() {
+    document.getElementById('popup').style.display = 'flex';
+}
+
+function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+}
+
 initializeGame();
+
