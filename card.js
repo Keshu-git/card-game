@@ -72,7 +72,8 @@ function showPopup() {
 
 function closePopup() {
     document.getElementById('popup').style.display = 'none';
+    initializeGame();
 }
 
-initializeGame();
+
 
